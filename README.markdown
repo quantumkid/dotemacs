@@ -8,7 +8,7 @@ Installation
 ------------
 
 To install, put `emacs.el` somewhere on your computer (the standard
-directory is `~/.emacs.d'). Then open your current `~/.emacs` file, and
+directory is `~/.emacs.d`). Then open your current `~/.emacs` file, and
 place the following somewhere near the top:
 
     (load "<install path>/emacs.el")
