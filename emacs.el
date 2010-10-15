@@ -25,6 +25,9 @@
 ;; Allows highlighting of arbitrary symbols
 (load "highlight-symbol.el" nil t t)
 
+;; Allows higlighting of whitespace
+(require 'show-wspace)
+
 ;; Load ReFTeX
 (autoload 'reftex-mode "reftex" "reftex major mode" t)
 
