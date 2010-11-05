@@ -47,6 +47,14 @@
 ;; Load markdown
 (autoload 'markdown-mode "markdown-mode" "markdown major mode" t)
 
+;; Load org mode
+(require 'org-install)
+
+;; Load recentf
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
+
 ;; ============================
 ;; Set Mouse Settings
 ;; ============================
@@ -273,6 +281,48 @@
       ;; allow some user customization
       (run-hooks 'find-file-root-hook))))
 
+;; current todo file
+(setq todo-file "/home/mmurphy/documents/thesis/thesis.org")
+;; add to todo list
+(defun add-to-todo-list (todo-priority todo-text)
+  "Adds an entry to the todo list defined in the variable 'todo-list'"
+  (interactive "p\nsTODO text: ")      
+  ;; add the read-in todo to the todo-file
+  (let (this-buffer this-buffer-line)
+    (setq this-buffer (buffer-file-name))
+    (setq this-buffer-line (number-to-string (line-number-at-pos)))
+    ;; add todo to the current file
+    (insert (concat "[!!TODO-"
+		      (format-time-string "<%Y-%m-%d-%H:%M>]")))
+    (with-temp-buffer
+      (insert "* TODO ")
+      (if todo-priority
+	  (if (< todo-priority 3)
+	      (insert (elt ["[#A] " "[#B] " "[#C] "] todo-priority))))
+      (insert (concat todo-text
+		      (format-time-string " <%Y-%m-%d %a %H:%M>") "\n"))
+      (insert "  :PROPERTIES:\n")
+      (insert "  :File: " this-buffer "\n")
+      (insert "  :Line: " this-buffer-line "\n")
+      (insert "  :END:\n")
+      (when (file-writable-p todo-file)
+	(write-region (point-min)
+		      (point-max)
+		      todo-file t)))))
+
+;; org capture
+(setq org-default-notes-file todo-file)
+
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "" "Tasks")
+             "* TODO %? %T\n   %i\n   %a")))
+
+;; global key bindings
 (global-set-key [(control x) (control r)] 'find-file-root)
+(global-set-key [f5] 'revert-buffer)
+(global-set-key [f9] 'org-capture)
+;; (global-sey-key [f9] 'add-to-todo-list)
+
+;; local key bindings
 
 ;; end
