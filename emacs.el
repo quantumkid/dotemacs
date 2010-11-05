@@ -82,8 +82,8 @@
 ;; Set Keyboard Settings
 ;; ============================
 
-(setq x-alt-keysym 'meta)
-(setq x-meta-keysym 'super)
+(setq x-alt-keysym 'alt)
+(setq x-meta-keysym 'meta)
 
 (global-set-key [s-tab] 'next-buffer)
 
@@ -316,6 +316,44 @@
 (setq org-capture-templates
       '(("t" "Todo" entry (file+headline "" "Tasks")
              "* TODO %? %T\n   %i\n   %a")))
+
+(defun col-dec-to-float (color)
+  "Converts decimal color in the range 0-255 to decimal."
+  (let (c)
+    ;; convert to number
+    (setq c (string-to-number color))
+    ;; divide by 255
+    (setq c (/ (float c) (float 255)))
+    ;; return as decimal X.XX
+    (format "%.2f" c)))
+
+(defun gimp-colors-to-context (start end)
+  "Converts colors from GIMP for use in ConTeXt."
+  (interactive "*r")
+  (save-restriction
+    (narrow-to-region start end)
+    (goto-char (point-min))
+    (let (r g b)
+      (while (re-search-forward "^\\([0-9]+\\)\\s-+\\([0-9]+\\)\\s-+\\([0-9]+\\)\\s-+\\([a-zA-Z ]+\\)" nil t)
+	(setq r (match-string 1))
+	(setq g (match-string 2))
+	(setq b (match-string 3))
+	(replace-match
+	 (concat
+	  "\\\\pgfutil@definecolor{"
+	  (replace-regexp-in-string "\\s-" "-" (downcase (match-string 4)))
+	  "}{rgb}{"
+	  (col-dec-to-float r)
+	  ","
+	  (col-dec-to-float g)
+	  ","
+	  (col-dec-to-float b)
+	  "}")
+	 nil)
+	)
+      )
+    )
+  )
 
 ;; global key bindings
 (global-set-key [(control x) (control r)] 'find-file-root)
