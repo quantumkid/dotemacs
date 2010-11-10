@@ -82,9 +82,6 @@
 ;; Set Keyboard Settings
 ;; ============================
 
-(setq x-alt-keysym 'alt)
-(setq x-meta-keysym 'meta)
-
 (global-set-key [s-tab] 'next-buffer)
 
 ;; ============================
