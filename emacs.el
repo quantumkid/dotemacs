@@ -286,7 +286,7 @@
       (run-hooks 'find-file-root-hook))))
 
 ;; current todo file
-(setq todo-file "/home/mmurphy/documents/thesis/thesis.org")
+(setq todo-file "/home/mmurphy/Dropbox/thesis/thesis.org")
 ;; add to todo list
 (defun add-to-todo-list (todo-priority todo-text)
   "Adds an entry to the todo list defined in the variable 'todo-list'"
@@ -299,7 +299,7 @@
     (insert (concat "[!!TODO-"
 		      (format-time-string "<%Y-%m-%d-%H:%M>]")))
     (with-temp-buffer
-      (insert "* TODO ")
+      (insert "** TODO ")
       (if todo-priority
 	  (if (< todo-priority 3)
 	      (insert (elt ["[#A] " "[#B] " "[#C] "] todo-priority))))
@@ -338,7 +338,7 @@
     (narrow-to-region start end)
     (goto-char (point-min))
     (let (r g b)
-      (while (re-search-forward "^\\([0-9]+\\)\\s-+\\([0-9]+\\)\\s-+\\([0-9]+\\)\\s-+\\([a-zA-Z ]+\\)" nil t)
+      (while (re-search-forward "^\\([0-9]+\\)\\s-+\\([0-9]+\\)\\s-+\\([0-9]+\\)\\s-+\\([a-zA-Z0-9 ]+\\)" nil t)
 	(setq r (match-string 1))
 	(setq g (match-string 2))
 	(setq b (match-string 3))
@@ -362,7 +362,7 @@
 ;; global key bindings
 (global-set-key [(control x) (control r)] 'find-file-root)
 (global-set-key [f5] 'revert-buffer)
-(global-set-key [f9] 'org-capture)
+(global-set-key [f9] 'add-to-todo-list)
 ;; (global-sey-key [f9] 'add-to-todo-list)
 
 ;; local key bindings
