@@ -105,7 +105,7 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; set frame size
-(add-to-list 'default-frame-alist '(height . 82))
+(add-to-list 'default-frame-alist '(height . 62))
 (add-to-list 'default-frame-alist '(width . 82))
 
 ;; turn off cursor blinking
@@ -234,6 +234,11 @@
 
 ;; default font
 (set-frame-font "Inconsolata-12")
+(add-hook 'after-make-frame-functions 'fontify-frame)
+
+(defun fontify-frame (frame)
+  (set-frame-parameter frame 'font "Inconsolata-12")
+  (set-frame-size frame 82 62))
 
 ;; ===========================
 ;; Custom Functions
