@@ -187,6 +187,8 @@
 	 ("\\.ly$"            . LilyPond-mode)
 	 ("\\.pde$"           . processing-mode)
 	 ("\\.markdown$"      . markdown-mode)
+	 ("\\.tex$"           . context-mode)
+	 ("\\.tkz$"           . context-mode)
          ) auto-mode-alist))
 
 ;; ===========================
@@ -224,7 +226,7 @@
 (setq font-latex-fontify-sectioning 1.0)
 (setq reftex-cite-format (quote natbib))
 (setq reftex-plug-into-AUCTeX t)
-(add-hook 'ConTeXt-mode-hook '(lambda () (highlight-phrase "!!TODO")))
+(add-hook 'ConTeXt-mode-hook '(lambda () (highlight-phrase "\\[!!TODO[^\\[]*?\\]")))
 (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
 
 ;; processing mode
