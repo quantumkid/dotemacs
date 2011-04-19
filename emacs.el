@@ -6,7 +6,6 @@
 ;; ============================
 
 (setq user-full-name "Michael Murphy")
-(setq user-mail-address "michael.murphy@uni-ulm.de")
 
 ;; ============================
 ;; Add the elisp path
