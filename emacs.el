@@ -363,6 +363,11 @@
 (global-set-key [f5] 'revert-buffer)
 (global-set-key [f9] 'add-to-todo-list)
 ;; (global-sey-key [f9] 'add-to-todo-list)
+;; org commands
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
 
 ;; local key bindings
 
